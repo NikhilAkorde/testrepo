@@ -1,0 +1,28 @@
+<p>
+  forms works!
+</p>
+
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+<label>
+   Name: <input   type="text" formControlName="Name">
+    </label><br><br>
+<label>
+    Product:<input  type="text" formControlName="Product">
+    </label><br><br>
+<label>
+    Quantity:<input type="text" formControlName="Quantity">
+    </label><br><br>
+<label>
+    Rate:<input type="text" formControlName="Rate">
+    </label><br><br>
+<label>
+    Amount:<input  type="text"  formControlName="Amount">
+    </label><br><br>
+<label>
+    Paid:<input  type="text" formControlName="paid">
+    </label><br><br>
+<label>
+    Remaining<input  type="text"  formControlName="Remaining">
+    </label><br><br>
+    <button type="submit" [disabled]="!profileForm.valid">submit</button>
+</form>

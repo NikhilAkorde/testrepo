@@ -1,0 +1,22 @@
+
+.table > tbody > tr > .no-line {
+    border-top: none;
+}
+
+.table > thead > tr > .no-line {
+    border-bottom: none;
+}
+
+.table > tbody > tr > .thick-line {
+    border-top: 2px solid;
+}
+
+
+/*@media*/
+/*    print {     */
+.no-print {
+    display: none;
+}
+.ng-hide {
+     display: block !important;
+   }

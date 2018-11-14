@@ -1,0 +1,146 @@
+
+
+<button routerLink="/forms">Form</button>
+
+<div *ngIf="currentSection === 'products'">
+    <h2 class="text-info" align="center" class="no-print">Invoice</h2>
+  
+    
+    <div class="row">
+  
+  <div class="col-4"> <strong>Name:</strong> Nikhil Korde<br> <strong> Address:</strong> Narendra Nagar,Nagpur</div>
+  
+</div>
+    <button class="btn btn-primary" (click)="AddProduct()">Add</button>&nbsp;
+    <button class="btn btn-primary" routerLink="/print-page">Print</button>
+    <div class="panel-heading">
+    				<h2 class="panel-title"><strong>Order summary</strong></h2>
+    			</div>
+<div class="table-responsive" print-section>
+    <table class="table  table-sm table-condensed" print-table="products" print-only>
+  <caption>List of Products</caption>
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Items</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Total</th>
+        <th  ng-hide="printMode" scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of products;let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{p.name}}</td>
+      <td>{{p.price}}</td>
+        <td>{{p.Quantity}}</td>
+        <td>{{p.price*p.Quantity}}</td>
+      <td class="ng-hide" ng-hide="printMode"><button class="btn btn-sm btn-primary" (click)="Edit(p)">Edit</button>
+        <button (click)="Delete(i)" class="btn btn-sm btn-success">Del</button>
+        </td>
+    </tr>
+                              <tr>
+    								<td class="thick-line"></td>
+    								<td class="thick-line"></td>
+    								<td class="thick-line"></td>
+    								<td class="thick-line text-left"><strong>Subtotal</strong></td>
+    								<td class="thick-line text-left">{{total}}</td>
+    							</tr>
+                         <tr>
+    							<td class="thick-line"></td>
+    								<td class="thick-line"></td>
+    								<td class="thick-line"></td>
+    								<td class="thick-line text-left"><strong>Tax {{taxPercent}}%</strong></td>
+    								<td class="thick-line text-left">{{tax}}</td>
+    							</tr>
+    							
+    							<tr>
+    								<td class="no-line"></td>
+    								<td class="no-line"></td>
+    								<td class="no-line"></td>
+    								<td class="no-line text-left"><strong>Total</strong></td>
+    								<td class="no-line text-left">{{total}}</td>
+    				   </tr>
+    
+  </tbody>
+</table>
+</div>
+</div>
+
+<div *ngIf="currentSection === 'addProduct'">
+    <form [formGroup]="addProductForm">
+<!--         <form [formGroup]="addNameForm">-->
+  <div class="form-row" formGroupName = "addNameForm">
+    <div class="form-group col-md-6">
+      <label>Name</label>
+      <input type="Name" class="form-control"  formControlName="name" placeholder="name">
+    </div>
+    <div class="form-group">
+    <label >Address</label>
+    <input type="text" class="form-control"  formControlName="address" placeholder="1234 Main St">
+  </div>
+     </div>
+<!--      <button type="submit" [disabled]="!addNameForm.valid" (click)="submit()" class="btn btn-primary">Submit</button>-->
+      
+<!--    </form>-->
+        
+        
+        <div>
+            <label>
+                Name:
+                <input type="text" formControlName="name">
+            </label>
+            <div *ngIf="addProductForm.controls.name.invalid && (addProductForm.controls.name.dirty || addProductForm.controls.name.touched)" class="alert">Name is required and should only be characters</div>
+        </div>
+        <div>
+            <label>
+                Price:
+                <input #box1 (Form.enter)="onEnter(box.value)" type="text" formControlName="price">
+<!--                <p>{{box1.value}}</p>-->
+            </label>
+            <div *ngIf="addProductForm.controls.price.invalid && (addProductForm.controls.price.dirty || addProductForm.controls.price.touched)" class="alert">Price is required</div>
+        </div>
+        <div>
+        <label>
+            Quantity:
+            <input #box2 (Form.enter)="onEnter(box.value)" type="text" formControlName="Quantity">
+        </label>
+        </div>
+        <div>
+        <label>
+            Total:
+            <input type="text" value="{{box1.value*box2.value}}" formControlName="total">
+        </label>
+        </div>
+<!--
+        <div>
+        <label>
+            subTotal:
+            <input type="text"  formControlName="subTotal">
+        </label>
+        </div>
+-->
+        <div>
+        <label>
+            taxPercent:
+            <input type="text"  formControlName="taxPercent">
+        </label>
+        </div> 
+<!--
+        <div>
+        <label>
+            tax:
+            <input type="text"  formControlName="tax">
+        </label>
+        </div>
+        <div>
+        <label>
+            grantTotal:
+            <input type="text"  formControlName="grantTotal">
+        </label>
+        </div>
+-->
+        <button [disabled]="!addProductForm.valid" (click)="Add()" class="btn btn-primary">Add</button>
+    </form>
+</div>
