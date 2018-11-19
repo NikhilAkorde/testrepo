@@ -13,11 +13,8 @@ allData:any;
 firebase.database().ref("products/").on('value', resp => {
     this.allData = snapshotToArray(resp);
 console.log(snapshotToArray(resp));  
-  }
-
-
-}
-}
+  })
+}}
 export const snapshotToArray = (snapshot) => {
     var returnArr = [];
     snapshot.forEach(function(childSnapshot){
